@@ -5,7 +5,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
-from dash.dependencies import Input, Output, State
 
 # Boostrap CSS and font awesome . Option 1) Run from codepen directly Option 2) Copy css file to assets folder and run locally
 external_stylesheets = ['https://codepen.io/unicorndy/pen/GRJXrvP.css',
