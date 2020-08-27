@@ -50,7 +50,7 @@ df = pd.DataFrame({
     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
 })
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="stack")
+fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 fig2 = px.line(df, x="Fruit", y="Amount", color="City")
 fig.update_layout(
     plot_bgcolor=colors['background'],
@@ -65,37 +65,14 @@ fig2.update_layout(
 
 app.layout = html.Div([
     html.Div([
-        html.H4('Department of Health, New Taipei City Government',
-                style={'textAlign': 'center'}),
-        html.H4('IFSMC - Dashboard of Intelligent Index',
-                style={'textAlign': 'center'})
+        html.H4('新北市政府衛生局',
+                style={'textAlign': 'left'}),
+        html.H6('食安智慧監控中心-數據儀表板',
+                style={
+                    'textAlign': 'left',
+                    'color': '#e63946'
+                })
     ], className='row'),
-    html.Div([  # modal div
-        html.Div([  # content div
-
-            dcc.Markdown('''
-                            Data Sources:
-                            * World Health Organization (WHO): https://www.who.int/
-                            * DXY.cn. Pneumonia. 2020. http://3g.dxy.cn/newh5/view/pneumonia.
-                            * BNO News: https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/
-                            '''),
-            html.Hr(),
-            html.Button('Close', id='modal-close-button',
-                        style={
-                            'color': 'red',
-                        })
-        ],
-            style={
-                'fontSize': 10,
-                'lineHeight': 0.9,
-            },
-            className='modal-content',
-        ),
-    ],
-        id='modal',
-        className='modal',
-        style={"display": "none"},
-    ),
     html.Div([
         html.Div([
             html.H4('柱狀範例圖',
@@ -131,8 +108,45 @@ app.layout = html.Div([
             )], className="six columns")
     ],
         className='ten columns offset-by-one',
+    ),
+
+    html.Div([
+        html.Div([
+            html.H4('柱狀範例圖',
+                    style={
+                        'textAlign': 'center',
+                        'color': colors['text']
+                    },
+                    className="row"
+                    ),
+            html.Div('Dash: A web application framework for Python.', style={
+                'textAlign': 'center',
+                'color': colors['text']
+            }),
+            dcc.Graph(
+                id='example-graph2',
+                figure=fig
+            )],
+            className="six columns"
+        ),
+        html.Div([
+            html.H4('折線圖範例圖',
+                    style={
+                        'textAlign': 'center',
+                        'color': colors['text']
+                    }, className="row"),
+            html.Div('Dash: A web application framework for Python.', style={
+                'textAlign': 'center',
+                'color': colors['text']
+            }),
+            dcc.Graph(
+                id='example-graph3',
+                figure=fig2
+            )], className="six columns")
+    ],
+        className='ten columns offset-by-one',
     )
-])
+], className='row')
 
 if __name__ == '__main__':
     app.run_server(debug=True)
